@@ -1,27 +1,26 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 function Header() {
   const router = useRouter();
   const currentRoute = router.pathname;
+  const { data: session } = useSession();
 
   function jsx_rightSection() {
-    if (user === null) {
+    if (session === undefined) {
       return <Navbar.Text>Loading user...</Navbar.Text>;
     }
 
-    if (error) {
-      return (
-        <Navbar.Text>Something went wrong when loading user data</Navbar.Text>
-      );
-    }
-
-    if (user === false) {
+    if (session === null) {
       return (
         <Nav>
           <Link href="/login" passHref>
-            <Nav.Link className={currentRoute === "/login" && "active"}>
+            <Nav.Link
+              className={currentRoute === "/login" && "active"}
+              onClick={() => signIn()}
+            >
               Login
             </Nav.Link>
           </Link>
@@ -37,8 +36,8 @@ function Header() {
 
     return (
       <Nav>
-        <Navbar.Text>{user.username}</Navbar.Text>
-        <Nav.Link onClick={() => dispatch(logout())}>Logout</Nav.Link>
+        <Navbar.Text>{session.user.username}</Navbar.Text>
+        <Nav.Link onClick={() => signOut()}>Logout</Nav.Link>
       </Nav>
     );
   }
@@ -72,7 +71,7 @@ function Header() {
             </Link>
           </Nav>
 
-          {/* {jsx_rightSection()} */}
+          {jsx_rightSection()}
         </Navbar.Collapse>
       </Container>
     </Navbar>

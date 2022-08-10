@@ -20,7 +20,7 @@ export default function Home({ articles }) {
         {articles.map((article) => (
           <Col lg={4} key={article.id}>
             <Card body>
-              <Link href={`/article/${article.id}`}>
+              <Link href={`/articles/${article.id}`}>
                 <a>{article.title}</a>
               </Link>
             </Card>
