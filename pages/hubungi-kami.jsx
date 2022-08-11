@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 
-export default function AboutUs() {
+export default function ContactUs() {
   return (
     <Container>
       <Head>
