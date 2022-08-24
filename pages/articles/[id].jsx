@@ -1,7 +1,7 @@
 import { unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
-import { authOptions } from "../api/auth/[...nextAuth]";
+import { authOptions } from '../api/auth/[...nextauth]';
 import apiFetch from "../../utils/apiFetch";
 
 export async function getServerSideProps({ req, res, params }) {
@@ -17,7 +17,7 @@ export async function getServerSideProps({ req, res, params }) {
   }
 
 
-  const response = await apiFetch(`http://localhost:4000/articles/${params.id}`, {
+  const response = await apiFetch(`/articles/${params.id}`, {
     headers: {
       Authorization: session.user.accessToken,
     },
