@@ -2,11 +2,22 @@ import { unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import { authOptions } from "../api/auth/[...nextAuth]";
+import apiFetch from "../../utils/apiFetch";
 
 export async function getServerSideProps({ req, res, params }) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
-  const response = await fetch(`http://localhost:4000/articles/${params.id}`, {
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+
+  const response = await apiFetch(`http://localhost:4000/articles/${params.id}`, {
     headers: {
       Authorization: session.user.accessToken,
     },

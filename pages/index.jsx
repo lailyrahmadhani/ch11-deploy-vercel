@@ -1,9 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
 import { Card, Row, Col, Container } from "react-bootstrap";
+import apiFetch from "../utils/apiFetch";
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:4000/articles");
+  //const res = await fetch(`${process.env.API_BASE_URL}/articles`);
+  const res = await apiFetch("/articles");
   const articles = await res.json();
 
   return { props: { articles } };
