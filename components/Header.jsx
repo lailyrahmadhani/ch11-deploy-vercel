@@ -37,7 +37,7 @@ function Header() {
     return (
       <Nav>
         <Navbar.Text>{session.user.username}</Navbar.Text>
-        <Nav.Link onClick={() => signOut()}>Logout</Nav.Link>
+        <Nav.Link onClick={() => signOut()} data-testid="logout">Logout</Nav.Link>
       </Nav>
     );
   }
